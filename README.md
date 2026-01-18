@@ -1,7 +1,7 @@
 # codi-wiki
 
 ## 📌 Descripción
-Este proyecto fue creado inicialmente con una estructura hecha por mí y se implementó en el nuevo editor de Google, Antigravity, utilizando los cinco modelos de IA disponibles.
+Este proyecto se realizo en el nuevo editor de código Antigravity, utilizando el modelo de IA Gemini 3 Pro (High).
 
 ## 📜 Licencia
 Este proyecto está bajo la licencia **MIT**.  

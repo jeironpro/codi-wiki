@@ -4,10 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaParadigmas = document.getElementById('lista-paradigmas');
     const pantallaBienvenida = document.getElementById('pantalla-bienvenida');
     const vistaDetalle = document.getElementById('vista-detalle');
-    const cabecerasAcordeon = document.querySelectorAll('.cabecera-acordeon');
     const contenedorPrincipal = document.querySelector('.contenido-principal');
 
-    // 1. Renderizar Menú Lateral
     function renderizarMenu() {
         // Lenguajes
         datosContenido.lenguajes.forEach(item => {
@@ -31,10 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             listaParadigmas.appendChild(enlace);
         });
     }
-
-    // 2. Lógica del Acordeón (ELIMINADA - Diseño Plano)
     
-    // 3. Mostrar Contenido Detallado
     function mostrarContenido(datos) {
         // Gestionar estado activo del menú
         document.querySelectorAll('.item-nav').forEach(el => el.classList.remove('activo'));
@@ -49,54 +44,136 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scroll al inicio
         contenedorPrincipal.scrollTop = 0;
 
-        // Construir listas HTML
-        const listaUsos = datos.usos.map(uso => `<li>${uso}</li>`).join('');
-        const listaPros = datos.pros.map(pro => `<li>${pro}</li>`).join('');
-        const listaContras = datos.contras.map(contra => `<li>${contra}</li>`).join('');
+        // Limpiar vista anterior
+        vistaDetalle.innerHTML = '';
 
-        // Generar HTML del detalle
-        vistaDetalle.innerHTML = `
-            <header class="cabecera-detalle">
-                <span class="etiqueta-tipo">${datos.etiqueta}</span>
-                <h1 class="titulo-detalle">${datos.nombre}</h1>
-                <p class="descripcion-detalle">${datos.descripcion}</p>
-            </header>
+        // 1. Header
+        const header = document.createElement('header');
+        header.className = 'cabecera-detalle';
 
-            <div class="bloque-seccion">
-                <h2>Historia y Origen</h2>
-                <p>${datos.historia}</p>
-            </div>
+        const spanEtiqueta = document.createElement('span');
+        spanEtiqueta.className = 'etiqueta-tipo';
+        spanEtiqueta.textContent = datos.etiqueta;
 
-            <div class="bloque-seccion">
-                <h2>Usos Principales</h2>
-                <ul style="padding-left: 1.5rem;">
-                    ${listaUsos}
-                </ul>
-            </div>
+        const h1Titulo = document.createElement('h1');
+        h1Titulo.className = 'titulo-detalle';
+        h1Titulo.textContent = datos.nombre;
 
-            <div class="bloque-seccion">
-                <h2>Análisis</h2>
-                <div class="lista-pros-contras">
-                    <div class="lista-columna">
-                        <h4>Ventajas</h4>
-                        <ul class="lista-check">
-                            ${listaPros}
-                        </ul>
-                    </div>
-                    <div class="lista-columna">
-                        <h4>Desventajas</h4>
-                        <ul class="lista-cross">
-                            ${listaContras}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        const pDescripcion = document.createElement('p');
+        pDescripcion.className = 'descripcion-detalle';
+        pDescripcion.textContent = datos.descripcion;
 
-            <div class="bloque-seccion">
-                <h2>Código de Ejemplo</h2>
-                <pre class="bloque-codigo"><code>${datos.ejemplo}</code></pre>
-            </div>
-        `;
+        header.appendChild(spanEtiqueta);
+        header.appendChild(h1Titulo);
+        header.appendChild(pDescripcion);
+        vistaDetalle.appendChild(header);
+
+        // 2. Historia
+        const divHistoria = document.createElement('div');
+        divHistoria.className = 'bloque-seccion';
+
+        const h2Historia = document.createElement('h2');
+        h2Historia.textContent = 'Historia y Origen';
+
+        const pHistoria = document.createElement('p');
+        pHistoria.textContent = datos.historia;
+
+        divHistoria.appendChild(h2Historia);
+        divHistoria.appendChild(pHistoria);
+        vistaDetalle.appendChild(divHistoria);
+
+        // 3. Usos Principales
+        const divUsos = document.createElement('div');
+        divUsos.className = 'bloque-seccion';
+
+        const h2Usos = document.createElement('h2');
+        h2Usos.textContent = 'Usos Principales';
+
+        const ulUsos = document.createElement('ul');
+        ulUsos.style.paddingLeft = '1.5rem';
+
+        datos.usos.forEach(uso => {
+            const li = document.createElement('li');
+            li.textContent = uso;
+            ulUsos.appendChild(li);
+        });
+
+        divUsos.appendChild(h2Usos);
+        divUsos.appendChild(ulUsos);
+        vistaDetalle.appendChild(divUsos);
+
+        // 4. Análisis (Pros/Contras)
+        const divAnalisis = document.createElement('div');
+        divAnalisis.className = 'bloque-seccion';
+
+        const h2Analisis = document.createElement('h2');
+        h2Analisis.textContent = 'Análisis';
+
+        const divProsContras = document.createElement('div');
+        divProsContras.className = 'lista-pros-contras';
+
+        // Columna Ventajas
+        const divColPros = document.createElement('div');
+        divColPros.className = 'lista-columna';
+
+        const h4Pros = document.createElement('h4');
+        h4Pros.textContent = 'Ventajas';
+
+        const ulPros = document.createElement('ul');
+        ulPros.className = 'lista-check';
+
+        datos.pros.forEach(pro => {
+            const li = document.createElement('li');
+            li.textContent = pro;
+            ulPros.appendChild(li);
+        });
+
+        divColPros.appendChild(h4Pros);
+        divColPros.appendChild(ulPros);
+
+        // Columna Desventajas
+        const divColContras = document.createElement('div');
+        divColContras.className = 'lista-columna';
+
+        const h4Contras = document.createElement('h4');
+        h4Contras.textContent = 'Desventajas';
+
+        const ulContras = document.createElement('ul');
+        ulContras.className = 'lista-cross';
+
+        datos.contras.forEach(contra => {
+            const li = document.createElement('li');
+            li.textContent = contra;
+            ulContras.appendChild(li);
+        });
+
+        divColContras.appendChild(h4Contras);
+        divColContras.appendChild(ulContras);
+
+        divProsContras.appendChild(divColPros);
+        divProsContras.appendChild(divColContras);
+
+        divAnalisis.appendChild(h2Analisis);
+        divAnalisis.appendChild(divProsContras);
+        vistaDetalle.appendChild(divAnalisis);
+
+        // 5. Código de Ejemplo
+        const divCodigo = document.createElement('div');
+        divCodigo.className = 'bloque-seccion';
+
+        const h2Codigo = document.createElement('h2');
+        h2Codigo.textContent = 'Código de Ejemplo';
+
+        const pre = document.createElement('pre');
+        pre.className = 'bloque-codigo';
+
+        const code = document.createElement('code');
+        code.textContent = datos.ejemplo;
+
+        pre.appendChild(code);
+        divCodigo.appendChild(h2Codigo);
+        divCodigo.appendChild(pre);
+        vistaDetalle.appendChild(divCodigo);
 
         // Reiniciar animación
         vistaDetalle.style.animation = 'none';
