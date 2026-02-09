@@ -1,4 +1,4 @@
-# codi-wiki
+# web-codi-wiki
 
 ## 📌 Descripción
 Este proyecto se realizo en el nuevo editor de código Antigravity, utilizando el modelo de IA Gemini 3 Pro (High).
