@@ -1,8 +1,7 @@
 # web-codi-wiki
 
-## 📌 Descripción
-Este proyecto se realizo en el nuevo editor de código Antigravity, utilizando el modelo de IA Gemini 3 Pro (High).
+Wiki de lenguajes de programación en la que cada ficha incluye su descripción, historia, ventajas y desventajas, usos y ejemplos de código.
 
-## 📜 Licencia
+## Licencia
 Este proyecto está bajo la licencia **MIT**.  
 Consulta el archivo [LICENSE](LICENSE) para más detalles.
